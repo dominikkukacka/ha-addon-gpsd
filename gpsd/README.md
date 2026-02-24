@@ -1,0 +1,89 @@
+# GPSD – Home Assistant Add-on
+
+Run [gpsd](https://gpsd.io/) inside a Home Assistant OS container, exposing GPS data over TCP port **2947** for any client on your LAN.
+
+## Supported Hardware
+
+Any USB GPS receiver that presents a serial port. Common chipsets:
+
+- **u-blox** (e.g. VK-162, BN-220)
+- **SiRF Star** (e.g. GlobalSat BU-353)
+- **MediaTek** (e.g. Adafruit Ultimate GPS)
+- **Silicon Labs CP2102N** USB-to-UART bridges
+
+The device typically appears as `/dev/ttyUSB0` or `/dev/ttyACM0`.
+
+## Installation
+
+1. In Home Assistant, go to **Settings → Add-ons → Add-on Store**.
+2. Click the **⋮** menu (top-right) → **Repositories**.
+3. Add the repository URL:
+   ```
+   https://github.com/leo-stan/ha-addon-gpsd
+   ```
+4. Find **GPSD** in the store and click **Install**.
+5. Configure the add-on (see below) and click **Start**.
+
+## Configuration
+
+| Option         | Default         | Description                                 |
+|----------------|-----------------|---------------------------------------------|
+| `device`       | `/dev/ttyUSB0`  | Path to the serial GPS device               |
+| `baud`         | `9600`          | Baud rate for the serial connection          |
+| `gpsd_options` | `"-n"`          | Extra gpsd flags (e.g. `-n` to poll on open)|
+
+### Finding Your Device Path
+
+SSH into your HA host (or use the Terminal add-on) and run:
+
+```bash
+ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null
+ls -l /dev/serial/by-id/
+```
+
+Using the `/dev/serial/by-id/...` path is recommended because it is stable across reboots.
+
+### Example Configuration
+
+```yaml
+device: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_XXXX-if00-port0
+baud: 9600
+gpsd_options: "-n"
+```
+
+## Testing
+
+From another machine on the same network (requires the `gpsd-clients` package):
+
+```bash
+# Interactive GPS monitor
+cgps -s <HA-IP>:2947
+
+# Raw NMEA/JSON stream (5 sentences)
+gpspipe -w -n 5 <HA-IP>:2947
+```
+
+Replace `<HA-IP>` with the IP address of your Home Assistant instance.
+
+## Troubleshooting
+
+### "GPS device not found"
+- Verify the device is plugged in and detected: `ls /dev/ttyUSB*`
+- Try the `/dev/serial/by-id/` path instead
+- Check the add-on configuration for typos in the device path
+
+### "Permission denied"
+- The add-on already requests device access. If you changed the device path, make sure it is also listed in `config.yaml` under `devices:`.
+
+### No GPS fix
+- Make sure the antenna has a clear view of the sky
+- Some receivers need a cold-start time of 30–60 seconds
+- Check baud rate matches your receiver (most default to 9600)
+- Look at the add-on logs for gpsd output
+
+### Connecting from Home Assistant integrations
+- The built-in **GPSd** integration (`gpsd`) can connect to `localhost:2947` since the add-on exposes the port to the host.
+
+## License
+
+MIT – see [LICENSE](../LICENSE).

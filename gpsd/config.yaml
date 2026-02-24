@@ -1,0 +1,29 @@
+name: GPSD
+description: Run gpsd in a container to expose GPS data over TCP
+version: 0.1.0
+slug: gpsd
+url: https://github.com/leo-stan/ha-addon-gpsd
+arch:
+  - aarch64
+  - armv7
+  - armhf
+  - amd64
+startup: services
+boot: auto
+init: false
+host_network: false
+ports:
+  2947/tcp: 2947
+ports_description:
+  2947/tcp: "gpsd TCP port"
+devices:
+  - /dev/ttyUSB0
+udev: true
+options:
+  device: /dev/ttyUSB0
+  baud: 9600
+  gpsd_options: "-n"
+schema:
+  device: str
+  baud: int
+  gpsd_options: str
