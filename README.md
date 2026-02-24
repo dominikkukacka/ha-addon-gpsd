@@ -85,8 +85,24 @@ Replace `<HA-IP>` with the IP address of your Home Assistant instance.
 - Check baud rate matches your receiver (most default to 9600)
 - Look at the add-on logs for gpsd output
 
-### Connecting from Home Assistant integrations
-- The built-in **GPSd** integration (`gpsd`) can connect to `localhost:2947` since the add-on exposes the port to the host.
+## Using with the Home Assistant GPSd Integration
+
+Once the add-on is running, you can connect it to the built-in [GPSd integration](https://www.home-assistant.io/integrations/gpsd/) to get GPS entities in Home Assistant (latitude, longitude, fix mode, etc.).
+
+1. Go to **Settings → Devices & Services → Add Integration**
+2. Search for **GPSd** and select it
+3. Enter the following:
+   - **Host**: `localhost`
+   - **Port**: `2947`
+4. Click **Submit**
+
+The integration will create a `sensor.gpsd` entity with attributes including:
+- **Latitude / Longitude**
+- **Altitude**
+- **Speed**
+- **Fix mode** (no fix, 2D, 3D)
+
+You can use these in automations, device trackers, or dashboards.
 
 ## License
 
