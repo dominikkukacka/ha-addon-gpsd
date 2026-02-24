@@ -92,7 +92,7 @@ Once the add-on is running, you can connect it to the built-in [GPSd integration
 1. Go to **Settings → Devices & Services → Add Integration**
 2. Search for **GPSd** and select it
 3. Enter the following:
-   - **Host**: `localhost`
+   - **Host**: `127.0.0.1` (localhost)
    - **Port**: `2947`
 4. Click **Submit**
 
