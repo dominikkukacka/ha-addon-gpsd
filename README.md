@@ -28,20 +28,24 @@ The device typically appears as `/dev/ttyUSB0` or `/dev/ttyACM0`.
 
 | Option         | Default         | Description                                 |
 |----------------|-----------------|---------------------------------------------|
-| `device`       | `/dev/ttyUSB0`  | Path to the serial GPS device               |
+| `device`       | `/dev/serial/by-id/usb-...` | Path to the serial GPS device (use `/dev/serial/by-id/` for stability) |
 | `baud`         | `9600`          | Baud rate for the serial connection          |
 | `gpsd_options` | `"-n"`          | Extra gpsd flags (e.g. `-n` to poll on open)|
 
 ### Finding Your Device Path
 
-SSH into your HA host (or use the Terminal add-on) and run:
+**Option 1 — HA UI (easiest):**
+1. Go to **Settings → System → Hardware**
+2. Click **All Hardware** (bottom of the page)
+3. Search for your GPS device (e.g. `CP2102`, `ttyUSB`, or `ttyACM`)
+4. Copy the `/dev/serial/by-id/...` path
 
+**Option 2 — Terminal / SSH:**
 ```bash
-ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null
 ls -l /dev/serial/by-id/
 ```
 
-Using the `/dev/serial/by-id/...` path is recommended because it is stable across reboots.
+Always prefer the `/dev/serial/by-id/...` path — it is stable across reboots and doesn't change if you plug in other USB devices.
 
 ### Example Configuration
 
