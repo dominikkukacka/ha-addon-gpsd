@@ -86,4 +86,4 @@ Replace `<HA-IP>` with the IP address of your Home Assistant instance.
 
 ## License
 
-MIT – see [LICENSE](../LICENSE).
+MIT – see [LICENSE](LICENSE).
