@@ -18,10 +18,9 @@ ports_description:
   2947/tcp: "gpsd TCP port"
 devices:
   - /dev/ttyUSB0
-  - /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_2c109c3eadf4ef118da5c41b6d9880ab-if00-port0
 udev: true
 options:
-  device: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_2c109c3eadf4ef118da5c41b6d9880ab-if00-port0
+  device: /dev/ttyUSB0
   baud: 9600
   gpsd_options: "-n"
 schema:
