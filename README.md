@@ -50,7 +50,7 @@ Always prefer the `/dev/serial/by-id/...` path — it is stable across reboots a
 ### Example Configuration
 
 ```yaml
-device: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_XXXX-if00-port0
+device: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_2c109c3eadf4ef118da5c41b6d9880ab-if00-port0
 baud: 9600
 gpsd_options: "-n"
 ```
