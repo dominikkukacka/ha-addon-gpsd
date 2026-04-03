@@ -57,7 +57,7 @@ gpsd_options: "-n"
 
 ## Testing
 
-From another machine on the same network (requires the `gpsd-clients` package):
+From another machine on the same network (install clients first: **Debian/Ubuntu** `sudo apt install gpsd-clients`, **macOS** `brew install gpsd`, **Fedora** `sudo dnf install gpsd-clients`):
 
 ```bash
 # Interactive GPS monitor
