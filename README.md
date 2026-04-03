@@ -67,7 +67,7 @@ cgps -s <HA-IP>:2947
 gpspipe -w -n 5 <HA-IP>:2947
 ```
 
-Replace `<HA-IP>` with the IP address of your Home Assistant instance.
+Replace `<HA-IP>` with the **host only** — the same address you use in the browser to open Home Assistant (no `http://`, no path). For example, if the UI is at `http://192.168.1.2/8123/...`, use `192.168.1.2`. That is also the value to use as **Host** in the GPSd integration below.
 
 ## Troubleshooting
 
@@ -94,9 +94,11 @@ Once the add-on is running, you can connect it to the built-in [GPSd integration
 1. Go to **Settings → Devices & Services → Add Integration**
 2. Search for **GPSd** and select it
 3. Enter the following:
-   - **Host**: `127.0.0.1` (localhost)
+   - **Host**: your Home Assistant machine’s **LAN IP address** (e.g. `192.168.1.50`), **not** `127.0.0.1`. Home Assistant Core runs in its own container; `localhost` there is not the gpsd add-on. On Home Assistant OS / Supervised, use the same IP you use in the browser to open HA. ([Community note](https://community.home-assistant.io/t/gpsd-custom-add-on-not-seen-by-home-assistant-in-hassos/561110))
    - **Port**: `2947`
 4. Click **Submit**
+
+If entities stay empty or **mode** stays **Unknown**, wait for a satellite fix near a window or outside (often 30–60+ seconds). **Unknown** is normal until gpsd reports a fix.
 
 The integration will create a `sensor.gpsd` entity with attributes including:
 - **Latitude / Longitude**
