@@ -19,7 +19,7 @@ The device typically appears as `/dev/ttyUSB0` or `/dev/ttyACM0`.
 2. Click the **⋮** menu (top-right) → **Repositories**.
 3. Add the repository URL:
    ```
-   https://github.com/leo-stan/ha-addon-gpsd
+   https://github.com/febu93/ha-addon-gpsd
    ```
 4. Find **GPSD** in the store and click **Install**.
 5. Configure the add-on (see below) and click **Start**.
@@ -77,7 +77,7 @@ Replace `<HA-IP>` with the IP address of your Home Assistant instance.
 - Check the add-on configuration for typos in the device path
 
 ### "Permission denied"
-- The add-on already requests device access. If you changed the device path, make sure it is also listed in `config.yaml` under `devices:`.
+- The add-on already requests device access. If you changed the device path, make sure it is also listed in the add-on manifest (`gpsd/config.yaml` in this repo) under `devices:`.
 
 ### No GPS fix
 - Make sure the antenna has a clear view of the sky
