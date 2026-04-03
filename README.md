@@ -72,12 +72,14 @@ Replace `<HA-IP>` with the IP address of your Home Assistant instance.
 ## Troubleshooting
 
 ### "GPS device not found"
-- Verify the device is plugged in and detected: `ls /dev/ttyUSB*`
+- Verify the device is plugged in and detected: `ls /dev/ttyUSB* /dev/ttyACM*`
 - Try the `/dev/serial/by-id/` path instead
 - Check the add-on configuration for typos in the device path
 
-### "Permission denied"
-- The add-on already requests device access. If you changed the device path, make sure it is also listed in the add-on manifest (`gpsd/config.yaml` in this repo) under `devices:`.
+### "Operation not permitted" or "Permission denied" on the serial device
+- The Supervisor only passes through host devices listed in the add-on manifest (`devices:` in `gpsd/config.yaml`). This repository includes **`/dev/ttyUSB0`** and **`/dev/ttyACM0`** (many u-blox modules use `ttyACM0`).
+- If your receiver is on **`ttyACM0`**, set the add-on **device** option to **`/dev/ttyACM0`** after updating to the latest add-on version, or use your `/dev/serial/by-id/...` path if it resolves correctly inside the container.
+- If you still see permission errors, confirm you are on the latest add-on build (rebuild or reinstall after a repo update) so the new `devices:` list is applied.
 
 ### No GPS fix
 - Make sure the antenna has a clear view of the sky
