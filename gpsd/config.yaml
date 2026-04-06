@@ -1,6 +1,6 @@
 name: GPSD
 description: Run gpsd in a container to expose GPS data over TCP
-version: 0.1.1
+version: 0.2.0
 slug: gpsd
 url: https://github.com/dominikkukacka/ha-addon-gpsd
 arch:
