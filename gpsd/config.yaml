@@ -2,7 +2,7 @@ name: GPSD
 description: Run gpsd in a container to expose GPS data over TCP
 version: 0.1.1
 slug: gpsd
-url: https://github.com/febu93/ha-addon-gpsd
+url: https://github.com/dominikkukacka/ha-addon-gpsd
 arch:
   - aarch64
   - armv7
@@ -19,6 +19,7 @@ ports_description:
 devices:
   - /dev/ttyUSB0
   - /dev/ttyACM0
+  - /dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0
 udev: true
 options:
   device: /dev/ttyUSB0
